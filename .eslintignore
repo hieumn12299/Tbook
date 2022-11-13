@@ -1,0 +1,6 @@
+/.next/
+/*.js
+/node_modules/
+/logs/
+/pids/
+/public/
