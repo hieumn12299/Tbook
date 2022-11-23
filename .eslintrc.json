@@ -1,3 +1,108 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "next/babel",
+    "next/core-web-vitals",
+    "eslint-config-prettier",
+    "plugin:prettier/recommended",
+    "prettier"
+  ],
+  "plugins": ["react", "prettier"],
+  "rules": {
+    "@next/next/no-img-element": "off",
+    "class-methods-use-this": "off",
+    "import/no-extraneous-dependencies": "off",
+    "no-debugger": "error",
+    "no-plusplus": [
+      "error",
+      {
+        "allowForLoopAfterthoughts": true
+      }
+    ],
+    "no-param-reassign": [
+      "error",
+      {
+        "props": true,
+        "ignorePropertyModificationsFor": ["state", "acc", "e"]
+      }
+    ],
+    "import/extensions": [0],
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "unknown",
+          "parent",
+          "sibling",
+          "index",
+          "object",
+          "type"
+        ],
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "external"
+          },
+          {
+            "pattern": "next/**",
+            "group": "external"
+          },
+          {
+            "pattern": "next",
+            "group": "external"
+          },
+          {
+            "pattern": "components/**",
+            "group": "internal"
+          },
+          {
+            "pattern": "pages/**",
+            "group": "internal"
+          },
+          {
+            "pattern": "utils/**",
+            "group": "internal"
+          },
+          {
+            "pattern": "types/**",
+            "group": "internal"
+          },
+          {
+            "pattern": "lib/**",
+            "group": "internal"
+          },
+          {
+            "pattern": "config/**",
+            "group": "internal"
+          },
+          {
+            "pattern": "pages/*",
+            "group": "external"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": [
+          "react",
+          "next",
+          "next/*",
+          "internal"
+        ],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ],
+    "import/newline-after-import": "error",
+    "jsx-a11y/anchor-is-valid": [
+      "error",
+      {
+        "components": ["Link"],
+        "specialLink": ["hrefLeft", "hrefRight"],
+        "aspects": ["invalidHref", "preferButton"]
+      }
+    ]
+  }
 }
