@@ -1,8 +1,18 @@
+import {
+  GetServerSideProps,
+  InferGetServerSidePropsType,
+  NextPage,
+} from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
+import { getStories } from '../server/stories';
+import { StoryPost } from '../src/types/story';
 import styles from '../styles/Home.module.scss';
 
-export default function Home() {
+const Home: NextPage = ({
+  storiesData,
+  chaptersData,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -12,47 +22,17 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <span className="text-2xl">hieu</span>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.tsx</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+        <section className="flex flex-col items-center text-[1.15rem] mt-12">
+          <div className="flex gap-3 mb-12">
+            {chaptersData.map((tag: string, idx: number) => {
+              return (
+                <button key={idx} onClick={(e) => {}}>
+                  {tag}
+                </button>
+              );
+            })}
+          </div>
+        </section>
       </main>
 
       <footer className={styles.footer}>
@@ -69,4 +49,24 @@ export default function Home() {
       </footer>
     </div>
   );
-}
+};
+
+export default Home;
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  let stories: StoryPost[] = await getStories('DIC_kwDOIbAdhM4CSvMs');
+  let chapters: string[] = [];
+  for (const story of stories) {
+    for (const chapter of story.chapters) {
+      if (!chapters.includes(chapter)) {
+        chapters.push(chapter);
+      }
+    }
+  }
+  return {
+    props: {
+      storiesData: stories,
+      chaptersData: chapters,
+    },
+  };
+};

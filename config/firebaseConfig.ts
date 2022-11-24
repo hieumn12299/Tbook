@@ -6,6 +6,8 @@ const firebaseConfig = {
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
 };
 
+console.log(firebaseConfig);
+
 firebase.initializeApp(firebaseConfig);
 
 export const auth = getAuth();
