@@ -7,7 +7,7 @@ import styles from './register.module.scss';
 const Register = () => {
   return (
     <div className="flex items-center w-screen h-screen justify-center bg-[#f8f8f8]">
-      <section className="signup w-full">
+      <section className={`${styles['sign-up']} w-full`}>
         <div className={styles['container-authen']}>
           <div className="signup-content py-[75px] flex">
             <div className="signup-form mx-[75px] pl-[34px] w-6/12 overflow-hidden">
@@ -97,7 +97,7 @@ const Register = () => {
               <figure className="m-0 mb-50 text-center">
                 <img
                   className="max-w-full h-auto"
-                  src="/assets/images/signup-image.jpg"
+                  src="/assets/images/sign-up-image.jpg"
                   alt="register-img"
                 />
               </figure>
