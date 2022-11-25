@@ -1,6 +1,7 @@
 import { onAuthStateChanged } from 'firebase/auth';
 import type { AppProps } from 'next/app';
 import { useEffect, useState } from 'react';
+import Header from '../components/Header';
 import { auth } from '../config/firebaseConfig';
 import { IcurrentUser } from '../src/types/auth';
 
@@ -24,5 +25,10 @@ export default function App({ Component, pageProps }: AppProps) {
     });
     return () => unRegisterAuthObserver();
   });
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <Header />
+      <Component {...pageProps} />
+    </>
+  );
 }

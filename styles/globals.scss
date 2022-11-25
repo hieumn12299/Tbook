@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.8;
+  color: #222;
+  font-weight: 400;
+  font-size: 13px;
+  background: linear-gradient(
+    136deg,
+    rgb(241, 222, 238) 0%,
+    rgb(250, 224, 216) 49%,
+    rgb(240, 244, 191) 100%
+  );
+}

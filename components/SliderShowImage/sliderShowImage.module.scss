@@ -1,0 +1,50 @@
+/* img tags */
+.imagesContainer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.2) 10px 10px 10px;
+}
+
+/* images using CSS */
+.imageDiv {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-size: cover;
+}
+
+.image1 {
+  background-image: url(https://images.unsplash.com/photo-1520645521318-f03a712f0e67?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ&s=21f0bd18ed2ebff26ffaae0df3b0d842);
+}
+
+.image2 {
+  background-image: url(https://images.unsplash.com/photo-1530890289114-8385d3901f84?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ&s=e8802a19e3c337255fbb47ff6450dd65);
+}
+
+/* animation styles */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fadeInClass {
+  animation-name: fadeIn;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: linear;
+}
