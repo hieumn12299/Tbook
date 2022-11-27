@@ -27,10 +27,10 @@ export function discussionGql(ghDiscussionCategoryId: string | undefined) {
 }
 
 // Single post
-export function discussionDetailGql(postId: number | undefined) {
+export function discussionDetailGql(storyId: string | undefined) {
   return `{
-    repository(owner: "anhduy1202", name: "DevBlog-yt") {
-      discussion(number: ${postId}) {
+    repository(owner: "hieumn12299", name: "Tbook") {
+      discussion(number: ${storyId}) {
         title
         bodyHTML
         createdAt

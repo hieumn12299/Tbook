@@ -52,7 +52,7 @@ export async function getStories(categoryId: string): Promise<StoryPost[]> {
   return posts;
 }
 
-export async function getStoryDetail(storyId: number): Promise<StoryDetail> {
+export async function getStoryDetail(storyId: string): Promise<StoryDetail> {
   const response = await fetch(API_URL, {
     method: 'POST',
     headers: {

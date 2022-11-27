@@ -14,10 +14,11 @@ export const storiesData = {
       id: 'DIC_kwDOIbAdhM4CSvMs',
       type: '1',
       name: 'Ngày Cáo Dối Lừa',
-      url: 'https://littleyuung.files.wordpress.com/2022/11/image1-2-3.jpg?w=195',
+      url: 'https://i.pinimg.com/564x/3e/01/ae/3e01ae4b6b2b80750d834f221803f8f5.jpg',
       author: 'Yuung',
+      status: 'Đang viết',
       description:
-        "orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        'Người trước mặt tôi đột nhiên quay lại, nắm tay tôi kéo đi. - Có phải chó với chủ đâu mà người trước kẻ sau. Tôi cười. Cũng chính hắn, bước chậm lại, ngoái đầu nhìn, và tình nguyện vác một đứa như tôi theo.',
     },
   ],
 };
