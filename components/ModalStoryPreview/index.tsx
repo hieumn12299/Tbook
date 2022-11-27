@@ -4,6 +4,7 @@ import { getStories } from '../../server/stories';
 import { fetchStories } from '../../src/context/actions';
 import { useAppStore } from '../../src/context/hooks';
 import { StoryPost } from '../../src/types/story';
+import parse from 'html-react-parser';
 
 export type IPreviewStoryModal = {
   id: string;
@@ -127,7 +128,13 @@ const ModalStoryPreview = ({
                     <span className="read-btn-text">Bắt đầu đọc</span>
                   </button>
                 </div>
-                <div className="description">{selectedStory?.description}</div>
+                <div className="description">
+                  <div className="detail-wrapper">
+                    {parse(
+                      currentStoryList ? currentStoryList[0].html || '' : ''
+                    )}
+                  </div>
+                </div>
                 <div className="more-details-wrapper">
                   <button
                     className="more-details"

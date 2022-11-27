@@ -5,6 +5,7 @@ import { fetchStories, setStoryDetail } from '../../../src/context/actions';
 import { useAppStore } from '../../../src/context/hooks';
 import { StoryPost } from '../../../src/types/story';
 import { storiesData } from '../../../stories';
+import parse from 'html-react-parser';
 
 const story = () => {
   const { state, dispatch } = useAppStore();
@@ -97,8 +98,9 @@ const story = () => {
               </div>
             </div>
             <div className="description flex-grow text-justify mt-5 h-[130px] max-h-[250px] overflow-auto w-full">
-              {storiesData.stories.filter((story) => story.id === id)[0]
-                ?.description || ''}
+              <div className="detail-wrapper">
+                {parse(state.stories[0]?.html || '')}
+              </div>
             </div>
             <div className="buttons-wrapper">
               <button className="read btn-primary">
