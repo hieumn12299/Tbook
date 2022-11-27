@@ -1,7 +1,7 @@
 export function discussionGql(ghDiscussionCategoryId: string | undefined) {
   return `{
         repository(owner: "hieumn12299", name: "Tbook") {
-            discussions(first: 100, categoryId: "${ghDiscussionCategoryId}") {
+            discussions(first: 100, categoryId: "${ghDiscussionCategoryId}", orderBy: {field: CREATED_AT, direction: ASC}) {
               nodes {
                 title
                 url

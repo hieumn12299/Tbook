@@ -5,7 +5,7 @@ import styles from './header.module.scss';
 const Header = () => {
   const router = useRouter();
   return (
-    <header className="w-full fixed top-0 z-[999]">
+    <header className="w-full fixed top-0 z-[999] h-[84px]">
       <nav
         className={`border-gray-200 px-4 lg:px-6 py-4 shadow-[0_3px_5px_rgba(57,63,72,0.3)] ${styles.header}`}
       >
@@ -74,7 +74,7 @@ const Header = () => {
                   onClick={() => router.push('/longStories')}
                   className="block py-2 pr-4 pl-3 text-gray-700 rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white text-2xl cursor-pointer"
                 >
-                  Truyện dài
+                  Tiểu thuyết
                 </span>
               </li>
               <li className="px-[24px]">

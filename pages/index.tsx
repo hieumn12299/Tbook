@@ -5,16 +5,25 @@ import {
 } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
+import { useContext, useEffect } from 'react';
 import Header from '../components/Header';
 import SliderShowImage from '../components/SliderShowImage';
 import { getStories } from '../server/stories';
+import AppContext from '../src/context/AppContext';
+import { useAppStore } from '../src/context/hooks';
 import { StoryPost } from '../src/types/story';
 import styles from '../styles/Home.module.scss';
+import { fetchStories } from '../src/context/actions';
 
-const Home: NextPage = ({
-  storiesData,
-  chaptersData,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const Home: NextPage = () => {
+  const { state, dispatch } = useAppStore();
+
+  // useEffect(() => {
+  //   dispatch(fetchStories(storiesData));
+  // }, []);
+
+  console.log(state);
+
   return (
     <>
       <Head>
@@ -24,21 +33,10 @@ const Home: NextPage = ({
       </Head>
       <div className="mt-[84px]">
         <main className="py-0">
-          {/* <section className="flex flex-col items-center text-[1.15rem] mt-12">
-          <div className="flex gap-3 mb-12">
-            {chaptersData.map((tag: string, idx: number) => {
-              return (
-                <button key={idx} onClick={(e) => {}}>
-                  {tag}
-                </button>
-              );
-            })}
-          </div>
-        </section> */}
-          <section className="bg-blueGray-50 h-[calc(100vh-84px)]">
-            <div className="overflow-hidden py-10">
+          <section className="bg-blueGray-50 min-h-[calc(100vh-84px)]">
+            <div>
               <div className="container px-4 mx-auto">
-                <div className="flex flex-wrap -m-8">
+                <div className="flex flex-wrap">
                   <div className="w-full md:w-1/2 p-8">
                     <div className="inline-block mb-6 px-2 py-1 font-semibold bg-green-100 rounded-full">
                       <div className="flex flex-wrap items-center -m-1">
@@ -69,7 +67,7 @@ const Home: NextPage = ({
                     <h1 className="mb-6 text-6xl md:text-8xl lg:text-10xl font-bold font-heading md:max-w-xl leading-none">
                       Discover mentors that helps you grow
                     </h1>
-                    <p className="mb-11 text-lg text-gray-900 font-medium md:max-w-md">
+                    <p className="mb-9 text-lg text-gray-900 font-medium md:max-w-md">
                       Get the best-in-className group mentoring plans and
                       professional benefits for your team
                     </p>
@@ -132,20 +130,21 @@ const Home: NextPage = ({
 
 export default Home;
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  let stories: StoryPost[] = await getStories('DIC_kwDOIbAdhM4CSvMs');
-  let chapters: string[] = [];
-  for (const story of stories) {
-    for (const chapter of story.chapters) {
-      if (!chapters.includes(chapter)) {
-        chapters.push(chapter);
-      }
-    }
-  }
-  return {
-    props: {
-      storiesData: stories,
-      chaptersData: chapters,
-    },
-  };
-};
+// export const getServerSideProps: GetServerSideProps = async () => {
+//   let stories: StoryPost[] = await getStories('DIC_kwDOIbAdhM4CSvMs');
+// let chapters: string[] = [];
+
+// for (const story of stories) {
+//   for (const chapter of story.chapters) {
+//     if (!chapters.includes(chapter)) {
+//       chapters.push(chapter);
+//     }
+//   }
+// }
+//   return {
+//     props: {
+//       storiesData: stories,
+//       chaptersData: chapters,
+//     },
+//   };
+// };

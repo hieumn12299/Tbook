@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app';
 import { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import { auth } from '../config/firebaseConfig';
+import { AppProvider } from '../src/context/AppProvider';
 import { IcurrentUser } from '../src/types/auth';
 
 import '../styles/globals.scss';
@@ -26,9 +27,9 @@ export default function App({ Component, pageProps }: AppProps) {
     return () => unRegisterAuthObserver();
   });
   return (
-    <>
+    <AppProvider>
       <Header />
       <Component {...pageProps} />
-    </>
+    </AppProvider>
   );
 }

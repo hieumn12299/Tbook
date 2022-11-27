@@ -2,7 +2,7 @@ import { StoryDetail, StoryPost } from '../src/types/story';
 import { discussionDetailGql, discussionGql } from './gql';
 
 const API_URL = 'https://api.github.com/graphql';
-const GH_ACCESS_TOKEN = process.env.GH_ACCESS_TOKEN;
+const GH_ACCESS_TOKEN = process.env.NEXT_PUBLIC_GH_ACCESS_TOKEN;
 
 export async function getStories(categoryId: string): Promise<StoryPost[]> {
   const response = await fetch(API_URL, {
