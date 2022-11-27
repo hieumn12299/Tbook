@@ -44,7 +44,7 @@ const story = () => {
         aria-label="Full screen modal"
       >
         <div className="story-preview-wrapper">
-          <div className="cover w-3/12">
+          <div className="cover w-3/12 max-w-[276px]">
             <img
               src={
                 storiesData.stories.filter((story) => story.id === id)[0]
@@ -54,7 +54,7 @@ const story = () => {
               className="h-100"
             />
           </div>
-          <div className="story-info w-9/12 flex">
+          <div className="story-info w-9/12 max-w-[calc(100%-276px)] flex flex-grow">
             <div className="meta-header">
               <div className="title-wrapper">
                 <div className="title text-3xl w-fit h-auto py-[10px]">
@@ -103,7 +103,16 @@ const story = () => {
               </div>
             </div>
             <div className="buttons-wrapper">
-              <button className="read btn-primary">
+              <button
+                className="read btn-primary"
+                onClick={() =>
+                  router.push(
+                    `/story/${id}/detail/${
+                      state.stories && state.stories[1].id
+                    }`
+                  )
+                }
+              >
                 <svg
                   width="16"
                   height="16"

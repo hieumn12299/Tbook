@@ -72,7 +72,7 @@ const Header = () => {
               <li className="px-[24px]">
                 <span
                   onClick={() => router.push('/longStories')}
-                  className="block py-2 pr-4 pl-3 text-[#7a5179] rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 text-[#7a5179] text-2xl cursor-pointer"
+                  className="block py-2 pr-4 pl-3 text-[#7a5179] rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 text-2xl cursor-pointer"
                 >
                   Tiểu thuyết
                 </span>
@@ -80,7 +80,7 @@ const Header = () => {
               <li className="px-[24px]">
                 <a
                   href="#"
-                  className="text-2xl block py-2 pl-3 text-[#7a5179] border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0 text-[#7a5179] dark:hover:bg-gray-700 lg:dark:hover:bg-transparent dark:border-gray-700"
+                  className="text-2xl block py-2 pl-3 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0 text-[#7a5179] dark:hover:bg-gray-700 lg:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   Truyện ngắn
                 </a>

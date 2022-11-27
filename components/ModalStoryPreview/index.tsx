@@ -1,4 +1,4 @@
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { getStories } from '../../server/stories';
 import { fetchStories } from '../../src/context/actions';
@@ -23,6 +23,7 @@ const ModalStoryPreview = ({
   selectedStory: IPreviewStoryModal | null;
   onClose?: () => void;
 }) => {
+  const router = useRouter();
   const [display, setDisplay] = useState(false);
 
   const [currentStoryList, setCurrentStoryList] = useState<StoryPost[] | null>(
@@ -107,7 +108,16 @@ const ModalStoryPreview = ({
                   </div>
                 </div>
                 <div className="buttons-wrapper">
-                  <button className="read btn-primary">
+                  <button
+                    className="read btn-primary"
+                    onClick={() =>
+                      router.push(
+                        `/story/${selectedStory?.id}/detail/${
+                          currentStoryList && currentStoryList[1].id
+                        }`
+                      )
+                    }
+                  >
                     <svg
                       width="16"
                       height="16"

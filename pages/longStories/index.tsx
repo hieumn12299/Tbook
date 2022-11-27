@@ -45,7 +45,7 @@ const LongStories = () => {
           <h2 className="text-[50px] font-bold text-white">Tiểu thuyết</h2>
         </div>
         <div className="flex justify-center">
-          <div className="flex py-10 gap-24 flex-col sm:flex-row justify-center mx-4 md:mx-0 lg:-mx-2 flex-wrap">
+          <div className="flex py-10 flex-row justify-between px-3 flex-wrap">
             {storiesData.stories
               .filter((story) => story.type === '1')
               .map((item) => (
