@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { getStoryDetail } from '../../../../server/stories';
 import parse from 'html-react-parser';
 import { StoryDetail } from '../../../../src/types/story';
@@ -11,47 +11,94 @@ import {
   getDocs,
   getFirestore,
   orderBy,
+  setDoc,
+  doc,
+  addDoc,
+  onSnapshot,
+  deleteDoc,
 } from 'firebase/firestore';
 import { IComment } from '../../../../src/types/comment';
+import { auth } from '../../../../config/firebaseConfig';
+
+type TNestedArray = (items: IComment[], parrent_id?: string) => IComment[];
+
+const toNestArray: TNestedArray = (items, parent_id) =>
+  items.reduce((nestedArray: IComment[], item: IComment) => {
+    if ((item.parent_id || parent_id) && item.parent_id !== parent_id) {
+      return nestedArray;
+    }
+    const childrenArray = toNestArray(items, item.id);
+    return [
+      ...nestedArray,
+      childrenArray.length ? { ...item, child_comments: childrenArray } : item,
+    ];
+  }, []);
+
+const db = getFirestore();
 
 const DetailStory = () => {
   const router = useRouter();
-  const idDetailStory = router.query.idDetailStory;
+  const idChapter = router.query.idDetailStory;
+
+  const idStory = router.query.id;
 
   const [detailStory, setDetailStory] = useState<StoryDetail | null>(null);
 
   const [commentList, setCommentList] = useState<IComment[]>([]);
 
-  const db = getFirestore();
+  const [content, setContent] = useState('');
+
+  const handleSetContent = (content: string) => {
+    setContent(content);
+  };
 
   useEffect(() => {
-    if (!idDetailStory) return;
+    if (!idChapter) return;
     const getDetailStory = async () => {
-      let detailStory = await getStoryDetail(idDetailStory.toString());
+      let detailStory = await getStoryDetail(idChapter.toString());
       setDetailStory(detailStory);
     };
     getDetailStory();
-  }, [idDetailStory]);
+  }, [idChapter]);
 
-  useEffect(() => {
-    if (!idDetailStory) return;
-    const q = query(
+  const q = useMemo(() => {
+    return query(
       collection(db, 'comments'),
-      where('id_chapter', '==', idDetailStory),
+      where('id_chapter', '==', idChapter || ''),
       orderBy('created_at', 'desc')
     );
-    const fetchComment = async () => {
-      const querySnapshot = await getDocs(q);
-      const listComment: IComment[] = [];
+  }, [idChapter]);
 
-      querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        listComment.push(doc.data() as IComment);
-      });
-      setCommentList(listComment);
-    };
-    fetchComment();
-  }, [idDetailStory]);
+  onSnapshot(q, (querySnapshot) => {
+    const listComment: IComment[] = [];
+
+    querySnapshot.forEach((doc) => {
+      listComment.push({
+        id: doc.id,
+        ...doc.data(),
+      } as IComment);
+    });
+
+    setCommentList(toNestArray(listComment));
+  });
+
+  const addComment = async () => {
+    if (!idStory || !idChapter) return;
+    await addDoc(collection(db, 'comments'), {
+      created_at: new Date(),
+      name: auth.currentUser?.displayName,
+      id_chapter: idChapter,
+      id_story: idStory,
+      parent_id: null,
+      content: content,
+    }).then(() => {
+      setContent('');
+    });
+  };
+
+  const deleteComment = async (id: string) => {
+    await deleteDoc(doc(db, 'comments', id));
+  };
 
   return (
     <div className="bg-[#F6F6F6] flex justify-center">
@@ -64,7 +111,13 @@ const DetailStory = () => {
             {parse(detailStory?.bodyHTML || '')}
           </div>
         </div>
-        <CommentList commentList={commentList} />
+        <CommentList
+          commentList={commentList}
+          addComment={addComment}
+          content={content}
+          onHandleSetContent={handleSetContent}
+          deleteComment={deleteComment}
+        />
       </div>
     </div>
   );

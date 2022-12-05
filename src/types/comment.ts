@@ -1,4 +1,5 @@
 export type IComment = {
+  id: string;
   id_chapter: string;
   id_story: string;
   content: string;
@@ -8,4 +9,5 @@ export type IComment = {
   };
   name: string;
   parent_id: string | null;
+  child_comments?: IComment[];
 };

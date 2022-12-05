@@ -10,25 +10,26 @@ import '../styles/globals.scss';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [currentUser, setCurrentUser] = useState<IcurrentUser | null>(null);
-  useEffect(() => {
-    const unRegisterAuthObserver = onAuthStateChanged(auth, (user) => {
-      // setProcessing(true);
-      if (user) {
-        const uid = user.uid;
-        setCurrentUser({
-          id: uid,
-          name: user.displayName || '',
-          img: user.photoURL,
-        });
-      } else {
-        setCurrentUser(null);
-      }
-    });
-    return () => unRegisterAuthObserver();
+  const unRegisterAuthObserver = onAuthStateChanged(auth, (user) => {
+    // setProcessing(true);
+    if (user) {
+      const uid = user.uid;
+      setCurrentUser({
+        id: uid,
+        name: user.displayName || '',
+        img: user.photoURL,
+      });
+    } else {
+      setCurrentUser(null);
+    }
   });
+  useEffect(() => {
+    return () => unRegisterAuthObserver();
+  }, []);
+
   return (
     <AppProvider>
-      <Header />
+      <Header currentUser={currentUser} />
       <Component {...pageProps} />
     </AppProvider>
   );

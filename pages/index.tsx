@@ -22,8 +22,6 @@ const Home: NextPage = () => {
   //   dispatch(fetchStories(storiesData));
   // }, []);
 
-  console.log(state);
-
   return (
     <>
       <Head>
