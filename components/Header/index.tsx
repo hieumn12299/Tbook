@@ -34,6 +34,7 @@ const Header = ({ currentUser }: { currentUser: IcurrentUser | null }) => {
                 data-dropdown-placement="bottom-start"
                 className="w-10 h-10 rounded-full cursor-pointer"
                 src={currentUser.img || ''}
+                referrerPolicy="no-referrer"
               />
             ) : (
               <a

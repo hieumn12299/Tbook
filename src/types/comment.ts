@@ -10,4 +10,6 @@ export type IComment = {
   name: string;
   parent_id: string | null;
   child_comments?: IComment[];
+  uid: string;
+  img: string;
 };

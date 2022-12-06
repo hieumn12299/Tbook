@@ -1,5 +1,7 @@
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 import type { AppProps } from 'next/app';
+import { useRouter } from 'next/router';
+// import Router from 'next/router';
 import { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import { auth } from '../config/firebaseConfig';
@@ -10,6 +12,8 @@ import '../styles/globals.scss';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [currentUser, setCurrentUser] = useState<IcurrentUser | null>(null);
+  const router = useRouter();
+
   const unRegisterAuthObserver = onAuthStateChanged(auth, (user) => {
     // setProcessing(true);
     if (user) {

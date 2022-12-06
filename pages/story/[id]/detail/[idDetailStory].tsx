@@ -92,6 +92,8 @@ const DetailStory = () => {
       id_story: idStory,
       parent_id: null,
       content: content,
+      img: auth.currentUser?.photoURL,
+      uid: auth.currentUser?.uid,
     }).then(() => {
       setContent('');
     });
