@@ -65,6 +65,7 @@ const DetailStory = () => {
     return query(
       collection(db, 'comments'),
       where('id_chapter', '==', idChapter || ''),
+      where('id_story', '==', idStory || ''),
       orderBy('created_at', 'desc')
     );
   }, [idChapter]);
