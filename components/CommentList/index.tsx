@@ -1,7 +1,6 @@
 import React from 'react';
 import { auth } from '../../config/firebaseConfig';
 import { IComment } from '../../src/types/comment';
-import CommentForm from '../CommentForm';
 import CommentItem from '../CommentItem';
 import FormComment from '../FormComment';
 
