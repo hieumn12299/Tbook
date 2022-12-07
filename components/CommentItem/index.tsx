@@ -1,6 +1,5 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useState } from 'react';
 import { IComment } from '../../src/types/comment';
-import { TiDelete } from 'react-icons/ti';
 import { auth } from '../../config/firebaseConfig';
 import { BsThreeDots } from 'react-icons/bs';
 import useClickOutSide from '../../src/hooks/useClickOutSide';
