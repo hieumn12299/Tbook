@@ -23,7 +23,7 @@ const Header = ({ currentUser }: { currentUser: IcurrentUser | null }) => {
               alt="Flowbite Logo"
             />
             <span className="self-center text-xl font-semibold whitespace-nowrap text-[#7a5179]">
-              ĐỒI TUYẾT CÓ CHIẾC BÔNG CHÀ
+              {/* ĐỒI TUYẾT CÓ CHIẾC BÔNG CHÀ */}
             </span>
           </span>
           <div className="flex items-center lg:order-2">

@@ -27,7 +27,9 @@ const toNestArray: TNestedArray = (items, parent_id) =>
     if ((item.parent_id || parent_id) && item.parent_id !== parent_id) {
       return nestedArray;
     }
-    const childrenArray = toNestArray(items, item.id);
+    const childrenArray = toNestArray(items, item.id).sort((x, y) => {
+      return x.created_at.seconds + y.created_at.seconds;
+    });
     return [
       ...nestedArray,
       childrenArray.length ? { ...item, child_comments: childrenArray } : item,
@@ -84,7 +86,7 @@ const DetailStory = () => {
   });
 
   const addComment = async () => {
-    if (!idStory || !idChapter) return;
+    if (!idStory || !idChapter || !content.trim().length) return;
     await addDoc(collection(db, 'comments'), {
       created_at: new Date(),
       name: auth.currentUser?.displayName,
@@ -97,10 +99,6 @@ const DetailStory = () => {
     }).then(() => {
       setContent('');
     });
-  };
-
-  const deleteComment = async (id: string) => {
-    await deleteDoc(doc(db, 'comments', id));
   };
 
   return (
@@ -119,7 +117,6 @@ const DetailStory = () => {
           addComment={addComment}
           content={content}
           onHandleSetContent={handleSetContent}
-          deleteComment={deleteComment}
         />
       </div>
     </div>
