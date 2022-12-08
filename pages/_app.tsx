@@ -53,7 +53,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <AppProvider>
       <Header currentUser={currentUser} />
       <Component {...pageProps} />
-      <Analytics />
+      {/* <Analytics /> */}
     </AppProvider>
   );
 }

@@ -19,6 +19,7 @@ import {
 } from 'firebase/firestore';
 import { IComment } from '../../../../src/types/comment';
 import { auth } from '../../../../config/firebaseConfig';
+import { Analytics } from '@vercel/analytics/react';
 
 type TNestedArray = (items: IComment[], parrent_id?: string) => IComment[];
 
@@ -119,6 +120,17 @@ const DetailStory = () => {
           onHandleSetContent={handleSetContent}
         />
       </div>
+      <Analytics
+        beforeSend={(event) => {
+          if (!idChapter) return null;
+          const url = new URL(event.url);
+          url.searchParams.delete(idChapter.toString());
+          return {
+            ...event,
+            url: url.toString(),
+          };
+        }}
+      />
     </div>
   );
 };
