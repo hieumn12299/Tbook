@@ -59,8 +59,11 @@ const DetailStory = () => {
 
   useEffect(() => {
     if (!idChapter) return;
-    ga.pageview(router.asPath);
+    // ga.pageview(router.asPath);
+    console.log(router.asPath.replace(`/detail/${idChapter}`, ''));
+
     ga.pageview(router.asPath.replace(`/detail/${idChapter}`, ''));
+    console.log('aa');
   }, [router, idChapter]);
 
   useEffect(() => {
