@@ -124,10 +124,9 @@ const DetailStory = () => {
         beforeSend={(event) => {
           if (!idChapter) return null;
           const url = new URL(event.url);
-          url.href.replace(`/detail/${idChapter}`, '');
           return {
             ...event,
-            url: url.toString(),
+            url: url.href.replace(`/detail/${idChapter}`, ''),
           };
         }}
       />

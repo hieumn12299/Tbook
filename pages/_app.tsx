@@ -7,7 +7,6 @@ import Header from '../components/Header';
 import { auth } from '../config/firebaseConfig';
 import { AppProvider } from '../src/context/AppProvider';
 import { IcurrentUser } from '../src/types/auth';
-import { Analytics } from '@vercel/analytics/react';
 
 import * as ga from '../lib/googleAnalytics';
 
@@ -53,7 +52,6 @@ export default function App({ Component, pageProps }: AppProps) {
     <AppProvider>
       <Header currentUser={currentUser} />
       <Component {...pageProps} />
-      {/* <Analytics /> */}
     </AppProvider>
   );
 }
