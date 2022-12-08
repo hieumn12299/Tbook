@@ -124,7 +124,7 @@ const DetailStory = () => {
         beforeSend={(event) => {
           if (!idChapter) return null;
           const url = new URL(event.url);
-          url.searchParams.delete(idChapter.toString());
+          url.href.replace(`/detail/${idChapter}`, '');
           return {
             ...event,
             url: url.toString(),
