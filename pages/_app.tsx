@@ -16,20 +16,22 @@ export default function App({ Component, pageProps }: AppProps) {
   const [currentUser, setCurrentUser] = useState<IcurrentUser | null>(null);
   const router = useRouter();
 
-  useEffect(() => {
-    const handleRouteChange = (url: string) => {
-      ga.pageview(url);
-    };
-    //When the component is mounted, subscribe to router changes
-    //and log those page views
-    router.events.on('routeChangeComplete', handleRouteChange);
+  // useEffect(() => {
+  //   const handleRouteChange = (url: string) => {
+  //     console.log(url);
 
-    // If the component is unmounted, unsubscribe
-    // from the event with the `off` method
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange);
-    };
-  }, [router.events]);
+  //     ga.pageview(url);
+  //   };
+  //   //When the component is mounted, subscribe to router changes
+  //   //and log those page views
+  //   router.events.on('routeChangeComplete', handleRouteChange);
+
+  //   // If the component is unmounted, unsubscribe
+  //   // from the event with the `off` method
+  //   return () => {
+  //     router.events.off('routeChangeComplete', handleRouteChange);
+  //   };
+  // }, [router.events]);
 
   const unRegisterAuthObserver = onAuthStateChanged(auth, (user) => {
     // setProcessing(true);

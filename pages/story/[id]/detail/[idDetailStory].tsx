@@ -20,6 +20,7 @@ import {
 import { IComment } from '../../../../src/types/comment';
 import { auth } from '../../../../config/firebaseConfig';
 import { Analytics } from '@vercel/analytics/react';
+import * as ga from '../../../../lib/googleAnalytics';
 
 type TNestedArray = (items: IComment[], parrent_id?: string) => IComment[];
 
@@ -41,6 +42,7 @@ const db = getFirestore();
 
 const DetailStory = () => {
   const router = useRouter();
+
   const idChapter = router.query.idDetailStory;
 
   const idStory = router.query.id;
@@ -54,6 +56,12 @@ const DetailStory = () => {
   const handleSetContent = (content: string) => {
     setContent(content);
   };
+
+  useEffect(() => {
+    if (!idChapter) return;
+    ga.pageview(router.asPath);
+    ga.pageview(router.asPath.replace(`/detail/${idChapter}`, ''));
+  }, [router, idChapter]);
 
   useEffect(() => {
     if (!idChapter) return;
@@ -120,7 +128,7 @@ const DetailStory = () => {
           onHandleSetContent={handleSetContent}
         />
       </div>
-      <Analytics
+      {/* <Analytics
         beforeSend={(event) => {
           if (!idChapter) return null;
           const url = new URL(event.url);
@@ -129,7 +137,7 @@ const DetailStory = () => {
             url: url.href.replace(`/detail/${idChapter}`, ''),
           };
         }}
-      />
+      /> */}
     </div>
   );
 };
