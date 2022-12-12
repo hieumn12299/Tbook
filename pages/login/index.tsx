@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { FaUser } from 'react-icons/fa';
 import { AiFillLock } from 'react-icons/ai';
 
@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import { auth } from '../../config/firebaseConfig';
+import CommonLayout from '../../components/Layout/CommonLayout';
 
 const index = () => {
   const router = useRouter();
@@ -126,3 +127,7 @@ const index = () => {
 };
 
 export default index;
+
+index.getLayout = function getLayout(page: ReactElement) {
+  return <CommonLayout>{page}</CommonLayout>;
+};

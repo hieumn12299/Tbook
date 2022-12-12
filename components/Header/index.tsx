@@ -1,14 +1,48 @@
-import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import Router, { useRouter } from 'next/router';
+import React, { memo, useState } from 'react';
 import { IcurrentUser } from '../../src/types/auth';
 import styles from './header.module.scss';
+import MyLoader from '../Loading';
+import useClickOutSide from '../../src/hooks/useClickOutSide';
+import useGetElementCoords from '../../src/hooks/useGetElementCoords';
+import Popover from '../Popover.tsx';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../config/firebaseConfig';
 
 const Header = ({ currentUser }: { currentUser: IcurrentUser | null }) => {
   const router = useRouter();
+  const [isShowSettings, setIsShowSettings] = useState<boolean>(false);
   const [displayNavMobile, setDisplayNavMobile] = useState(false);
+  const { nodeRef } = useClickOutSide(() => setIsShowSettings(false));
+  const { coords, elmRef, handleGetElementCoords } = useGetElementCoords();
+  const handleToggleSettings = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    setIsShowSettings((s) => !s);
+    handleGetElementCoords(e);
+  };
+
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        Router.push('/login');
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
 
   return (
     <header className="w-full fixed top-0 z-[999] h-[84px]">
+      {isShowSettings && (
+        <Popover
+          coords={coords}
+          position="right"
+          className="bg-white rounded-2xl shadow w-[230px] py-3 px-5"
+        >
+          <SettingsContentMemo handleLogout={handleLogout} />
+        </Popover>
+      )}
       <nav
         className={`border-gray-200 px-4 lg:px-6 py-4 shadow-[0_3px_5px_rgba(57,63,72,0.3)] ${styles.header}`}
       >
@@ -26,16 +60,23 @@ const Header = ({ currentUser }: { currentUser: IcurrentUser | null }) => {
               {/* ĐỒI TUYẾT CÓ CHIẾC BÔNG CHÀ */}
             </span>
           </span>
-          <div className="flex items-center lg:order-2">
+          <div className="flex items-center lg:order-2" ref={nodeRef}>
             {currentUser ? (
-              <img
-                id="avatarButton"
-                data-dropdown-toggle="userDropdown"
-                data-dropdown-placement="bottom-start"
-                className="w-10 h-10 rounded-full cursor-pointer"
-                src={currentUser.img || ''}
-                referrerPolicy="no-referrer"
-              />
+              <div
+                ref={elmRef}
+                onClick={(e) => {
+                  handleToggleSettings(e);
+                }}
+              >
+                <img
+                  id="avatarButton"
+                  data-dropdown-toggle="userDropdown"
+                  data-dropdown-placement="bottom-start"
+                  className="w-10 h-10 rounded-full cursor-pointer"
+                  src={currentUser.img || ''}
+                  referrerPolicy="no-referrer"
+                />
+              </div>
             ) : (
               <a
                 href="#"
@@ -112,4 +153,21 @@ const Header = ({ currentUser }: { currentUser: IcurrentUser | null }) => {
     </header>
   );
 };
+
+const SettingsContentMemo = memo(SettingsContent);
+function SettingsContent({ handleLogout }: { handleLogout: () => void }) {
+  return (
+    <>
+      <div>
+        <span
+          className="font-medium text-gray-700 inline-block hover:text-red-500 cursor-pointer text-base"
+          onClick={handleLogout}
+        >
+          Log out
+        </span>
+      </div>
+    </>
+  );
+}
+
 export default Header;
